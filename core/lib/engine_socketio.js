@@ -302,9 +302,10 @@ SocketIoEngine.prototype.loadContextSocket = function (namespace, context, cb) {
     const socket = io(target, options);
     context.sockets[namespace] = socket;
 
-    socket.onAny(() => {
-      context.__receivedMessageCount++;
-    });
+    // Catch-All event listeners are not available on socket.io 2.0.
+    // socket.onAny(() => {
+    //   context.__receivedMessageCount++;
+    // });
 
     socket.once('connect', function () {
       cb(null, socket);
